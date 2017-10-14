@@ -4,6 +4,22 @@ void main() {
   runApp(new MyApp());
 }
 
+
+class Choice {
+  const Choice({ this.title, this.icon});
+  final String title;
+  final IconData icon;
+}
+
+const List<Choice> choices = const <Choice>[
+  const Choice(title: 'HOME', icon: Icons.home),
+  const Choice(title: 'EXPERIENCE', icon: Icons.work),
+  const Choice(title: 'EDUCATION', icon: Icons.school),
+  const Choice(title: 'SKILL', icon: Icons.extension),
+  const Choice(title: 'PORTFOLIO', icon: Icons.art_track),
+  const Choice(title: 'CONTACT', icon: Icons.contact_mail),
+];
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -41,7 +57,7 @@ class MyApp extends StatelessWidget {
           // Star Icon
           new Icon(
             Icons.star,
-            color: Colors.red[500],
+            color: Colors.yellow[600],
           ),
 
           // Star Count
@@ -98,24 +114,36 @@ Blah blah something something lakaly lake lake 123123
 
     return new MaterialApp(
       title: 'Flutter Demo',
-      home: new Scaffold(
-        appBar: new AppBar(
-          title: new Text('Son Luong Ngoc'),
-          centerTitle: true,
-        ),
-        body: new ListView(
-          children: [
-            new Image.asset(
-              'images/lake.jpg',
-              width: 600.0,
-              height: 240.0,
-              fit: BoxFit.cover,
+      home: new DefaultTabController(
+        length: choices.length,
+        child: new Scaffold(
+          appBar: new AppBar(
+            title: const Text('Son Luong Ngoc'),
+            centerTitle: true,
+            bottom: new TabBar(
+              isScrollable: true,
+              tabs: choices.map((Choice choice) {
+                return new Tab(
+                  text: choice.title,
+                  icon: new Icon(choice.icon),
+                );
+              }).toList(),
             ),
-            buttonSection,
-            titleSection,
-            textSection,
-          ],
-        ),
+          ),
+          body: new ListView(
+            children: [
+              new Image.asset(
+                'images/lake.jpg',
+                width: 600.0,
+                height: 240.0,
+                fit: BoxFit.cover,
+              ),
+              buttonSection,
+              titleSection,
+              textSection,
+            ],
+          ),
+        )
       ),
     );
   }
